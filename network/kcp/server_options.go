@@ -35,6 +35,11 @@ type serverOptions struct {
 	blockCrypt             kcp.BlockCrypt
 	dataShards             int
 	parityShards           int
+	ackNoDelay             bool
+	noDelay                int
+	kcpInterval            int
+	kcpResend              int
+	kcpNc                  int
 }
 
 func defaultServerOptions() *serverOptions {
@@ -47,6 +52,11 @@ func defaultServerOptions() *serverOptions {
 		blockCrypt:             nil,
 		dataShards:             0,
 		parityShards:           0,
+		ackNoDelay:             false,
+		noDelay:                1,
+		kcpInterval:            10,
+		kcpResend:              2,
+		kcpNc:                  1,
 	}
 }
 
@@ -158,5 +168,16 @@ func WithDataShardsAndParityShards(dataShards, parityShards int) ServerOption {
 	return func(o *serverOptions) {
 		o.dataShards = dataShards
 		o.parityShards = parityShards
+	}
+}
+
+// WithAckAndSend 设置Kcp加解密规则
+func WithAckAndSend(ackNoDelay bool, sendNoDelay, interval, resend, nc int) ServerOption {
+	return func(o *serverOptions) {
+		o.ackNoDelay = ackNoDelay
+		o.noDelay = sendNoDelay
+		o.kcpInterval = interval
+		o.kcpResend = resend
+		o.kcpNc = nc
 	}
 }

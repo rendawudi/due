@@ -1,21 +1,18 @@
 /**
- * @Author: fuxiao
- * @Email: 576101059@qq.com
+ * @Author: rendawudi
  * @Date: 2022/5/11 11:31 上午
  * @Desc: TODO
  */
 
-package kcp_test
+package kcp
 
 import (
-	kcp "github.com/dobyte/due/network/tcp"
-	"testing"
-
 	"github.com/dobyte/due/network"
+	"testing"
 )
 
 func TestServer(t *testing.T) {
-	server := kcp.NewServer()
+	server := NewServer()
 	server.OnStart(func() {
 		t.Logf("server is started")
 	})
@@ -28,7 +25,7 @@ func TestServer(t *testing.T) {
 	server.OnReceive(func(conn network.Conn, msg []byte, msgType int) {
 		t.Logf("receive msg from client, connection id: %d, msg: %s", conn.ID(), string(msg))
 
-		if err := conn.Push([]byte("I'm fine~~")); err != nil {
+		if err := conn.Push([]byte("hello client~~")); err != nil {
 			t.Error(err)
 		}
 	})

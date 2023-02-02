@@ -1,6 +1,5 @@
 /**
- * @Author: fuxiao
- * @Email: 576101059@qq.com
+ * @Author: rendawudi
  * @Date: 2022/5/11 10:02 上午
  * @Desc: TODO
  */
@@ -18,7 +17,7 @@ import (
 
 type server struct {
 	opts              *serverOptions            // 配置
-	listener          net.Listener              // 监听器
+	listener          *kcp.Listener             // 监听器
 	connMgr           *serverConnMgr            // 连接管理器
 	startHandler      network.StartHandler      // 服务器启动hook函数
 	stopHandler       network.CloseHandler      // 服务器关闭hook函数
@@ -103,12 +102,7 @@ func (s *server) OnReceive(handler network.ReceiveHandler) {
 
 // 初始化TCP服务器
 func (s *server) init() error {
-	addr, err := net.ResolveTCPAddr("tcp", s.opts.addr)
-	if err != nil {
-		return err
-	}
-
-	ln, err := kcp.ListenWithOptions(addr.Network(), s.opts.blockCrypt, s.opts.parityShards, s.opts.dataShards)
+	ln, err := kcp.ListenWithOptions(s.opts.addr, s.opts.blockCrypt, s.opts.parityShards, s.opts.dataShards)
 	if err != nil {
 		return err
 	}
@@ -123,7 +117,7 @@ func (s *server) serve() error {
 	var tempDelay time.Duration
 
 	for {
-		conn, err := s.listener.Accept()
+		conn, err := s.listener.AcceptKCP()
 		if err != nil {
 			if e, ok := err.(net.Error); ok && e.Temporary() {
 				if tempDelay == 0 {
@@ -143,6 +137,8 @@ func (s *server) serve() error {
 			return err
 		}
 
+		conn.SetACKNoDelay(s.opts.ackNoDelay)
+		conn.SetNoDelay(s.opts.noDelay, 10, 2, 0)
 		tempDelay = 0
 
 		if err = s.connMgr.allocate(conn); err != nil {
