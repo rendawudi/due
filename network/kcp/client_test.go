@@ -8,7 +8,8 @@ import (
 )
 
 func TestNewClient(t *testing.T) {
-	client := kcp.NewClient()
+	client := kcp.NewClient(
+		kcp.WithClientEnableHeartbeat(true))
 	client.OnConnect(func(conn network.Conn) {
 		t.Log("connection is opened")
 	})

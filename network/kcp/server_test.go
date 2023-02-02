@@ -12,7 +12,8 @@ import (
 )
 
 func TestServer(t *testing.T) {
-	server := NewServer()
+	server := NewServer(
+		WithServerEnableHeartbeatCheck(true))
 	server.OnStart(func() {
 		t.Logf("server is started")
 	})

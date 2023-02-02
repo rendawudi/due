@@ -244,7 +244,7 @@ func (c *clientConn) read() {
 func (c *clientConn) write() {
 	var ticker *time.Ticker
 	if c.client.opts.enableHeartbeat {
-		ticker = time.NewTicker(c.client.opts.heartbeatInterval)
+		ticker = time.NewTicker(c.client.opts.heartbeatInterval * time.Second)
 		defer ticker.Stop()
 	} else {
 		ticker = &time.Ticker{C: make(chan time.Time, 1)}

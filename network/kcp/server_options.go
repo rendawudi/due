@@ -85,94 +85,94 @@ func WithServerHeartbeatInterval(heartbeatInterval time.Duration) ServerOption {
 	return func(o *serverOptions) { o.heartbeatCheckInterval = heartbeatInterval }
 }
 
-// WithSM4BlockCrypt 设置Kcp加解密规则
-func WithSM4BlockCrypt(key, salt string) ServerOption {
+// WithServerSM4BlockCrypt 设置Kcp加解密规则
+func WithServerSM4BlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewSM4BlockCrypt(pass[:16]) }
 }
 
-// WithTEABlockCrypt 设置Kcp加解密规则
-func WithTEABlockCrypt(key, salt string) ServerOption {
+// WithServerTEABlockCrypt 设置Kcp加解密规则
+func WithServerTEABlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewTEABlockCrypt(pass[:16]) }
 }
 
-// WithSimpleXORBlockCrypt 设置Kcp加解密规则
-func WithSimpleXORBlockCrypt(key, salt string) ServerOption {
+// WithServerSimpleXORBlockCrypt 设置Kcp加解密规则
+func WithServerSimpleXORBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewSimpleXORBlockCrypt(pass) }
 }
 
-// WithNoneBlockCrypt 设置Kcp加解密规则
-func WithNoneBlockCrypt(key, salt string) ServerOption {
+// WithServerNoneBlockCrypt 设置Kcp加解密规则
+func WithServerNoneBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewNoneBlockCrypt(pass) }
 }
 
-// WithAES128BlockCrypt 设置Kcp加解密规则
-func WithAES128BlockCrypt(key, salt string) ServerOption {
+// WithServerAES128BlockCrypt 设置Kcp加解密规则
+func WithServerAES128BlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewAESBlockCrypt(pass[:16]) }
 }
 
-// With192BlockCrypt 设置Kcp加解密规则
-func With192BlockCrypt(key, salt string) ServerOption {
+// WithServer192BlockCrypt 设置Kcp加解密规则
+func WithServer192BlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewAESBlockCrypt(pass[:24]) }
 }
 
-// WithBlowfishBlockCrypt 设置Kcp加解密规则
-func WithBlowfishBlockCrypt(key, salt string) ServerOption {
+// WithServerBlowfishBlockCrypt 设置Kcp加解密规则
+func WithServerBlowfishBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewBlowfishBlockCrypt(pass) }
 }
 
-// WithTwofishBlockCrypt 设置Kcp加解密规则
-func WithTwofishBlockCrypt(key, salt string) ServerOption {
+// WithServerTwofishBlockCrypt 设置Kcp加解密规则
+func WithServerTwofishBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewTwofishBlockCrypt(pass) }
 }
 
-// WithCast5BlockCrypt 设置Kcp加解密规则
-func WithCast5BlockCrypt(key, salt string) ServerOption {
+// WithServerCast5BlockCrypt 设置Kcp加解密规则
+func WithServerCast5BlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewCast5BlockCrypt(pass[:16]) }
 }
 
-// WithTripleDESBlockCrypt 设置Kcp加解密规则
-func WithTripleDESBlockCrypt(key, salt string) ServerOption {
+// WithServerTripleDESBlockCrypt 设置Kcp加解密规则
+func WithServerTripleDESBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewTripleDESBlockCrypt(pass[:24]) }
 }
 
-// WithXTEABlockCrypt 设置Kcp加解密规则
-func WithXTEABlockCrypt(key, salt string) ServerOption {
+// WithServerXTEABlockCrypt 设置Kcp加解密规则
+func WithServerXTEABlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewXTEABlockCrypt(pass[:16]) }
 }
 
-// WithSalsa20BlockCrypt 设置Kcp加解密规则
-func WithSalsa20BlockCrypt(key, salt string) ServerOption {
+// WithServerSalsa20BlockCrypt 设置Kcp加解密规则
+func WithServerSalsa20BlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewSalsa20BlockCrypt(pass) }
 }
 
-// WithAESBlockCrypt 设置Kcp加解密规则
-func WithAESBlockCrypt(key, salt string) ServerOption {
+// WithServerAESBlockCrypt 设置Kcp加解密规则
+func WithServerAESBlockCrypt(key, salt string) ServerOption {
 	pass := pbkdf2.Key([]byte(key), []byte(salt), 4096, 32, sha1.New)
 	return func(o *serverOptions) { o.blockCrypt, _ = kcp.NewAESBlockCrypt(pass) }
 }
 
-// WithDataShardsAndParityShards 设置Kcp加解密规则
-func WithDataShardsAndParityShards(dataShards, parityShards int) ServerOption {
+// WithServerDataShardsAndParityShards 设置Kcp加解密规则
+func WithServerDataShardsAndParityShards(dataShards, parityShards int) ServerOption {
 	return func(o *serverOptions) {
 		o.dataShards = dataShards
 		o.parityShards = parityShards
 	}
 }
 
-// WithAckAndSend 设置Kcp加解密规则
-func WithAckAndSend(ackNoDelay bool, sendNoDelay, interval, resend, nc int) ServerOption {
+// WithServerAckAndSend 设置Kcp加解密规则
+func WithServerAckAndSend(ackNoDelay bool, sendNoDelay, interval, resend, nc int) ServerOption {
 	return func(o *serverOptions) {
 		o.ackNoDelay = ackNoDelay
 		o.noDelay = sendNoDelay

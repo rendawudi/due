@@ -258,7 +258,7 @@ func (c *serverConn) cleanup() {
 func (c *serverConn) write() {
 	var ticker *time.Ticker
 	if c.connMgr.server.opts.enableHeartbeatCheck {
-		ticker = time.NewTicker(c.connMgr.server.opts.heartbeatCheckInterval)
+		ticker = time.NewTicker(c.connMgr.server.opts.heartbeatCheckInterval * time.Second)
 		defer ticker.Stop()
 	} else {
 		ticker = &time.Ticker{C: make(chan time.Time, 1)}
